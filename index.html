@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Convertir JSON a CSV y Excel</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="container">
+    <h1 class="text-center">Convertir JSON a CSV y Excel</h1>
+    <form id="myForm">
+      <div class="form-group">
+        <label for="myTextarea">JSON:</label>
+        <textarea class="form-control" id="myTextarea" rows="5"></textarea>
+      </div>
+      <div class="text-center">
+        <button class="btn btn-primary btn-lg" id="csvButton" onclick="downloadCSV()">Descargar CSV</button>
+        <button class="btn btn-success btn-lg" id="xlsxButton" onclick="downloadXLSX()">Descargar XLSX</button>
+      </div>
+      <div class="text-center">
+        <button class="btn btn-primary btn-lg btn-block" id="csvButtonMovil" onclick="downloadCSV()">Descargar CSV</button>
+        <button class="btn btn-success btn-lg btn-block" id="xlsxButtonMovil" onclick="downloadXLSX()">Descargar XLSX</button>
+      </div>
+    </form>
+    <div class="seo-section">
+      <h2 class="text-center">Optimiza tus datos con la conversión de JSON a CSV y Excel</h2>
+      <p>La conversión de JSON a CSV y Excel es una herramienta poderosa para trabajar con datos estructurados. Convierte tus archivos JSON en formatos ampliamente compatibles y flexibles, como CSV y Excel, para facilitar el análisis, la importación y la exportación de datos.</p>
+      <p>Al convertir JSON a CSV y Excel, puedes aprovechar las funciones avanzadas de hojas de cálculo y las herramientas de análisis de datos disponibles en aplicaciones como Microsoft Excel y Google Sheets. Organiza tus datos, realiza cálculos, crea gráficos y realiza análisis estadísticos con facilidad.</p>
+      <p>Además, la conversión de JSON a CSV y Excel te permite compartir tus datos de manera más eficiente. Los archivos CSV son ampliamente utilizados y compatibles con muchas aplicaciones y sistemas, lo que facilita el intercambio de información con otros equipos y colaboradores.</p>
+    </div>
+  </div>
+  <footer class="text-center fixed-bottom">
+    Autor: Fernando Rojas | <a href="https://www.linkedin.com/in/ingrojasfer" target="_blank">LinkedIn</a>
+  </footer>  
+  <script src="https://cdn.jsdelivr.net/npm/xlsx/dist/xlsx.full.min.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
