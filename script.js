@@ -14,7 +14,11 @@ function downloadCSV() {
   var jsonData;
 
   try {
+    textareaValue = textareaValue.replace(/'/g, "\"");
     jsonData = JSON.parse(textareaValue);
+    if (!Array.isArray(jsonData)) {
+      jsonData = [jsonData]; // Si es solo un objeto, coloca el objeto dentro de un array
+    }
   } catch (error) {
     showError();
     return;
@@ -32,7 +36,11 @@ function downloadXLSX() {
   var jsonData;
 
   try {
+    textareaValue = textareaValue.replace(/'/g, "\"");
     jsonData = JSON.parse(textareaValue);
+    if (!Array.isArray(jsonData)) {
+      jsonData = [jsonData]; // Si es solo un objeto, coloca el objeto dentro de un array
+    }
   } catch (error) {
     showError();
     return;
@@ -100,6 +108,7 @@ function flattenJSON(jsonArray) {
   return result;
 }
 
+
 // Función para convertir un JSON a un array de arrays
 function convertJSONToArrayOfArrays(jsonArray) {
   var allKeys = [];
@@ -152,7 +161,7 @@ function isTextareaEmpty() {
 // Función para verificar si el texto en el textarea es un JSON válido
 function isTextareaValidJson() {
   try {
-    var parsedData = JSON.parse(textarea.value);
+    var parsedData = JSON.parse(textarea.value.replace(/'/g, "\""));
     return typeof parsedData === "object" && parsedData !== null;
   } catch (error) {
     return false;
