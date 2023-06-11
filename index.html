@@ -4,7 +4,11 @@
   <meta charset="UTF-8">
   <title>Convertir JSON a CSV y Excel</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Convierte JSON a CSV y Excel de manera fácil y rápida. Optimiza tus datos, realiza análisis avanzados y comparte información eficientemente.">
+  <link rel="icon" href="favicon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="https://cdn.datatables.net/1.11.1/css/jquery.dataTables.min.css">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.4/css/all.min.css">
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -16,15 +20,40 @@
         <textarea class="form-control" id="myTextarea" rows="5"></textarea>
       </div>
       <div class="text-center">
-        <button class="btn btn-primary btn-lg" id="csvButton" onclick="downloadCSV()">Descargar CSV</button>
-        <button class="btn btn-success btn-lg" id="xlsxButton" onclick="downloadXLSX()">Descargar XLSX</button>
+        <button class="btn btn-dark btn-lg" id="loadSample" onclick="test()"><i class="fas fa-upload"></i> Cargar ejemplo</button>
+        <button class="btn btn-primary btn-lg" id="csvButton" onclick="downloadCSV()"><i class="fas fa-file-csv"></i> Descargar CSV</button>
+        <button class="btn btn-success btn-lg" id="xlsxButton" onclick="downloadXLSX()"><i class="fas fa-file-excel"></i> Descargar XLSX</button>
       </div>
       <div class="text-center">
-        <button class="btn btn-primary btn-lg btn-block" id="csvButtonMovil" onclick="downloadCSV()">Descargar CSV</button>
-        <button class="btn btn-success btn-lg btn-block" id="xlsxButtonMovil" onclick="downloadXLSX()">Descargar XLSX</button>
+        <button class="btn btn-dark btn-lg btn-block" id="loadSampleMovil" onclick="test()"><i class="fas fa-upload"></i> Cargar ejemplo</button>
+        <button class="btn btn-primary btn-lg btn-block" id="csvButtonMovil" onclick="downloadCSV()"><i class="fas fa-file-csv"></i> Descargar CSV</button>
+        <button class="btn btn-success btn-lg btn-block" id="xlsxButtonMovil" onclick="downloadXLSX()"><i class="fas fa-file-excel"></i> Descargar XLSX</button>
       </div>
     </form>
-    <div class="seo-section">
+    <div class="table-responsive hidden" id="tableContainer">
+      <table id="myTable" class="table table-bordered">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Nombre</th>
+            <th>Apellido</th>
+            <th>Email</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>1</td>
+            <td>John</td>
+            <td>Doe</td>
+            <td>john@example.com</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="text-center">
+      <ul id="pagination" class="pagination"></ul>
+    </div>
+    <div class="seo-section text-justify">
       <h2 class="text-center">Optimiza tus datos con la conversión de JSON a CSV y Excel</h2>
       <p>La conversión de JSON a CSV y Excel es una herramienta poderosa para trabajar con datos estructurados. Convierte tus archivos JSON en formatos ampliamente compatibles y flexibles, como CSV y Excel, para facilitar el análisis, la importación y la exportación de datos.</p>
       <p>Al convertir JSON a CSV y Excel, puedes aprovechar las funciones avanzadas de hojas de cálculo y las herramientas de análisis de datos disponibles en aplicaciones como Microsoft Excel y Google Sheets. Organiza tus datos, realiza cálculos, crea gráficos y realiza análisis estadísticos con facilidad.</p>
@@ -37,7 +66,8 @@
   <footer class="text-center sticky-bottom">
     Autor: Fernando Rojas | <a href="https://www.linkedin.com/in/ingrojasfer" target="_blank">LinkedIn</a>
   </footer>  
-  <script src="https://cdn.jsdelivr.net/npm/xlsx/dist/xlsx.full.min.js"></script>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="datatables.min.js"></script>
   <script src="script.js"></script>
 </body>
 </html>

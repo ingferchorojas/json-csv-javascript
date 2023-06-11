@@ -1,12 +1,66 @@
+// Obtener referencias a los elementos del DOM
+const textarea = document.getElementById("myTextarea");
+const csvButton = document.getElementById("csvButton");
+const xlsxButton = document.getElementById("xlsxButton");
+const csvButtonMovil = document.getElementById("csvButtonMovil");
+const xlsxButtonMovil = document.getElementById("xlsxButtonMovil");
+
 // Esperar a que se cargue el DOM
 document.addEventListener("DOMContentLoaded", function () {
+  // Enfocar el textarea
+  textarea.focus();
+  // Deshabilitar botones al inicio
+  toggleButtons();
   var form = document.getElementById("myForm");
-
   // Evitar que el formulario se envíe al presionar Enter
   form.addEventListener("submit", function (event) {
     event.preventDefault();
   });
 });
+
+function test() {
+  var textarea = document.getElementById("myTextarea");
+  var button = document.getElementById("loadSample");
+  var buttonMovil = document.getElementById("loadSampleMovil");
+
+  if (textarea.value.trim() !== "") {
+    textarea.value = "";
+    button.innerHTML = `<i class="fas fa-upload"></i> Cargar ejemplo`;;
+    buttonMovil.innerHTML = `<i class="fas fa-upload"></i> Cargar ejemplo`;
+  } else {
+    var sampleData = [
+      {"id": 1, "nombre": "John", "apellido": "Doe", "email": "john@example.com"},
+      {"id": 2, "nombre": "Jane", "apellido": "Smith", "email": "jane@example.com"},
+      {"id": 3, "nombre": "Robert", "apellido": "Johnson", "email": "robert@example.com"},
+      {"id": 4, "nombre": "Sarah", "apellido": "Williams", "email": "sarah@example.com"},
+      {"id": 5, "nombre": "Michael", "apellido": "Brown", "email": "michael@example.com"},
+      {"id": 6, "nombre": "Laura", "apellido": "Davis", "email": "laura@example.com"},
+      {"id": 7, "nombre": "Daniel", "apellido": "Miller", "email": "daniel@example.com"},
+      {"id": 8, "nombre": "Emily", "apellido": "Wilson", "email": "emily@example.com"},
+      {"id": 9, "nombre": "James", "apellido": "Taylor", "email": "james@example.com"},
+      {"id": 10, "nombre": "Olivia", "apellido": "Anderson", "email": "olivia@example.com"},
+      {"id": 11, "nombre": "David", "apellido": "Thomas", "email": "david@example.com"},
+      {"id": 12, "nombre": "Sophia", "apellido": "Lee", "email": "sophia@example.com"},
+      {"id": 13, "nombre": "Joseph", "apellido": "Harris", "email": "joseph@example.com"},
+      {"id": 14, "nombre": "Ava", "apellido": "Clark", "email": "ava@example.com"},
+      {"id": 15, "nombre": "Christopher", "apellido": "Lewis", "email": "christopher@example.com"},
+      {"id": 16, "nombre": "Emma", "apellido": "Walker", "email": "emma@example.com"},
+      {"id": 17, "nombre": "Andrew", "apellido": "Hall", "email": "andrew@example.com"},
+      {"id": 18, "nombre": "Isabella", "apellido": "Young", "email": "isabella@example.com"},
+      {"id": 19, "nombre": "Matthew", "apellido": "Allen", "email": "matthew@example.com"},
+      {"id": 20, "nombre": "Mia", "apellido": "Green", "email": "mia@example.com"}
+    ];
+    textarea.value = JSON.stringify(sampleData);
+    button.innerHTML = `<i class="fas fa-backspace"></i> Limpiar`;
+    buttonMovil.innerHTML = `<i class="fas fa-backspace"></i> Limpiar`;
+  }
+
+  // Enfocar el textarea
+  textarea.focus();
+  // Esto es para los botones
+  change();
+}
+
 
 // Función para descargar un archivo CSV
 function downloadCSV() {
@@ -26,6 +80,7 @@ function downloadCSV() {
 
   var flatten = flattenJSON(jsonData);
   var csvData = convertJSONToArrayOfArrays(flatten);
+  console.log("csvData", csvData)
   var csvFile = createCsvFile(csvData);
   downloadFile(csvFile, "data_csv.csv");
 }
@@ -109,7 +164,6 @@ function flattenJSON(jsonArray) {
 }
 
 
-// Función para convertir un JSON a un array de arrays
 function convertJSONToArrayOfArrays(jsonArray) {
   var allKeys = [];
 
@@ -134,8 +188,46 @@ function convertJSONToArrayOfArrays(jsonArray) {
     arrayOfArrays.push(values);
   }
 
+  // Obtener la referencia del elemento thead de la tabla
+  var tableHead = document.getElementById("myTable").getElementsByTagName("thead")[0];
+
+  // Limpiar el contenido anterior del thead
+  tableHead.innerHTML = "";
+
+  // Crear los elementos <th> dinámicamente
+  var headerRow = document.createElement("tr");
+  for (var i = 0; i < arrayOfArrays[0].length; i++) {
+    var headerCell = document.createElement("th");
+    var headerCellText = document.createTextNode(arrayOfArrays[0][i]);
+    headerCell.appendChild(headerCellText);
+    headerRow.appendChild(headerCell);
+  }
+  tableHead.appendChild(headerRow);
+
+  // Obtener la referencia del elemento tbody de la tabla
+  var tableBody = document.getElementById("myTable").getElementsByTagName("tbody")[0];
+
+  // Limpiar el contenido anterior del tbody
+  tableBody.innerHTML = "";
+
+  // Crear los elementos <tr> y <td> dinámicamente
+  for (var i = 1; i < arrayOfArrays.length; i++) {
+    var row = document.createElement("tr");
+
+    for (var j = 0; j < arrayOfArrays[i].length; j++) {
+      var cell = document.createElement("td");
+      var cellText = document.createTextNode(arrayOfArrays[i][j]);
+      cell.appendChild(cellText);
+      row.appendChild(cell);
+    }
+
+    tableBody.appendChild(row);
+  }
+
   return arrayOfArrays;
 }
+
+
 
 function downloadFile(file, fileName) {
   var a = document.createElement("a");
@@ -148,14 +240,10 @@ function downloadFile(file, fileName) {
   URL.revokeObjectURL(url);
 }
 
-// Obtener referencias a los elementos del DOM
-const textarea = document.getElementById("myTextarea");
-const csvButton = document.getElementById("csvButton");
-const xlsxButton = document.getElementById("xlsxButton");
-
 // Función para verificar si el textarea está vacío
 function isTextareaEmpty() {
-  return textarea.value.trim() === "";
+  const result = textarea.value.trim() === "";
+  return result
 }
 
 // Función para verificar si el texto en el textarea es un JSON válido
@@ -173,9 +261,13 @@ function toggleButtons() {
   if (isTextareaEmpty() || !isTextareaValidJson()) {
     csvButton.disabled = true;
     xlsxButton.disabled = true;
+    csvButtonMovil.disabled = true;
+    xlsxButtonMovil.disabled = true;
   } else {
     csvButton.disabled = false;
     xlsxButton.disabled = false;
+    csvButtonMovil.disabled = false;
+    xlsxButtonMovil.disabled = false;
   }
 }
 
@@ -203,11 +295,58 @@ function hideError() {
 
 // Agregar el evento onkeyup al textarea
 textarea.addEventListener("keyup", function () {
+  change();
+});
+
+function change() {
   toggleButtons();
 
   if (!isTextareaEmpty() && !isTextareaValidJson()) {
     showError();
+    hiddenTable();
   } else {
+    showTable();
     hideError();
   }
+
+  // No muestro la tabla si el textarea está vacío
+  if (isTextareaEmpty()) {
+    hiddenTable();
+  }
+}
+
+$(document).ready(function() {
+  $('#myTable').DataTable();
 });
+
+function showTable() {
+  $('#tableContainer').removeClass('hidden');
+
+  var textareaValue = document.getElementById("myTextarea").value;
+  var jsonData;
+
+  try {
+    textareaValue = textareaValue.replace(/'/g, "\"");
+    jsonData = JSON.parse(textareaValue);
+    if (!Array.isArray(jsonData)) {
+      jsonData = [jsonData]; // Si es solo un objeto, coloca el objeto dentro de un array
+    }
+  } catch (error) {
+    showError();
+    return;
+  }
+  // Destruir la instancia actual de DataTables
+  if ($.fn.DataTable.isDataTable('#myTable')) {
+    $('#myTable').DataTable().destroy();
+  }
+
+  var flatten = flattenJSON(jsonData);
+  convertJSONToArrayOfArrays(flatten);
+  // Inicializar DataTables nuevamente en la nueva tabla
+  $('#myTable').DataTable();
+}
+
+function hiddenTable() {
+  $('#tableContainer').addClass('hidden');
+}
+
