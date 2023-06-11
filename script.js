@@ -61,6 +61,22 @@ function test() {
   change();
 }
 
+function clean() {
+  var textarea = document.getElementById("myTextarea");
+  var button = document.getElementById("loadSample");
+  var buttonMovil = document.getElementById("loadSampleMovil");
+
+  if (textarea.value.trim() !== "") {
+    button.innerHTML = `<i class="fas fa-backspace"></i> Limpiar`;
+    buttonMovil.innerHTML = `<i class="fas fa-backspace"></i> Limpiar`;
+  } else {
+    button.innerHTML = `<i class="fas fa-upload"></i> Cargar ejemplo`;;
+    buttonMovil.innerHTML = `<i class="fas fa-upload"></i> Cargar ejemplo`;
+  }
+
+  // Enfocar el textarea
+  textarea.focus();
+}
 
 // Función para descargar un archivo CSV
 function downloadCSV() {
@@ -295,6 +311,7 @@ function hideError() {
 // Agregar el evento onkeyup al textarea
 textarea.addEventListener("keyup", function () {
   change();
+  clean();
 });
 
 function change() {
