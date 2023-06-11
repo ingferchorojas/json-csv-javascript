@@ -80,7 +80,6 @@ function downloadCSV() {
 
   var flatten = flattenJSON(jsonData);
   var csvData = convertJSONToArrayOfArrays(flatten);
-  console.log("csvData", csvData)
   var csvFile = createCsvFile(csvData);
   downloadFile(csvFile, "data_csv.csv");
 }
