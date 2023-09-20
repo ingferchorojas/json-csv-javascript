@@ -19,6 +19,10 @@
     display: none;
 }
 
+footer {
+    margin-top: 1rem;
+}
+
 @media (max-width: 576px) {
 
     #csvButton,
